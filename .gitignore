@@ -1,0 +1,21 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+
+# Godot-specific folders
+.import/
+.godot/
+
+# Godot build cache
+*.godot-import
+*.godot-export
+
+# User/editor-specific settings (safe to ignore)
+export_presets.cfg
+project.godot-export.cfg
+godot.editor_settings-*.json
+.editor_settings-*
+
+# OS-specific files
+.DS_Store
+Thumbs.db
