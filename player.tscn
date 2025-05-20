@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dg83w8o65sv6b"]
+[gd_scene load_steps=6 format=3 uid="uid://dg83w8o65sv6b"]
 
 [ext_resource type="Texture2D" uid="uid://fdc5bgm8c7ef" path="res://art/player.png" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://ckrbsdbqv1xqq" path="res://player.gd" id="1_onrkg"]
+[ext_resource type="PackedScene" uid="uid://cx5j8vdrs5q7b" path="res://bullet.tscn" id="2_i3pqv"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_onrkg"]
 animations = [{
@@ -15,10 +16,11 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4flbx"]
-radius = 18.0278
+radius = 37.0135
 
 [node name="Player" type="Area2D"]
 script = ExtResource("1_onrkg")
+bullet_scene = ExtResource("2_i3pqv")
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

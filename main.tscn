@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://dy2tedses40wf"]
+
+[ext_resource type="Script" uid="uid://bnwgo11fbryu8" path="res://main.gd" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://dg83w8o65sv6b" path="res://player.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://cfbv4kqajm3a4" path="res://asteroid.tscn" id="2_h2yge"]
+[ext_resource type="Texture2D" uid="uid://n3fexl13rs8b" path="res://art/stars-galaxy.jpg" id="3_1bvp3"]
+
+[sub_resource type="Curve2D" id="Curve2D_h2yge"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 192)
+}
+point_count = 2
+
+[node name="main" type="Node2D"]
+script = ExtResource("1_0xm2m")
+asteroid_scene = ExtResource("2_h2yge")
+metadata/_edit_group_ = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("3_1bvp3")
+
+[node name="Player" parent="." instance=ExtResource("1_ig7tw")]
+
+[node name="AsteroidTimer" type="Timer" parent="."]
+wait_time = 1.5
+autostart = true
+
+[node name="StartPosition" type="Marker2D" parent="."]
+position = Vector2(600, 400)
+
+[node name="AsteroidPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_h2yge")
+
+[node name="AsteroidSpawnLocation" type="PathFollow2D" parent="AsteroidPath"]
+rotation = 1.5708
+
+[connection signal="timeout" from="AsteroidTimer" to="." method="_on_asteroid_timer_timeout"]
