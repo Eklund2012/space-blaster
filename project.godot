@@ -13,11 +13,11 @@ config_version=5
 config/name="Space Blaster"
 run/main_scene="uid://dy2tedses40wf"
 config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://assets/art/icon.svg"
 
 [autoload]
 
-Globals="*res://globals.gd"
+Globals="*res://scripts/globals.gd"
 
 [display]
 

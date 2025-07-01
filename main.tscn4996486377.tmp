@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dy2tedses40wf"]
+[gd_scene load_steps=8 format=3 uid="uid://dy2tedses40wf"]
 
 [ext_resource type="Script" uid="uid://bnwgo11fbryu8" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://dg83w8o65sv6b" path="res://player.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://cfbv4kqajm3a4" path="res://asteroid.tscn" id="2_h2yge"]
 [ext_resource type="Texture2D" uid="uid://n3fexl13rs8b" path="res://art/stars-galaxy.jpg" id="3_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://dhaeufy37qiqp" path="res://bomb.tscn" id="3_7mycd"]
+[ext_resource type="PackedScene" uid="uid://o1sn2urfba0x" path="res://hud.tscn" id="4_1bvp3"]
 
 [sub_resource type="Curve2D" id="Curve2D_h2yge"]
 _data = {
@@ -11,9 +13,10 @@ _data = {
 }
 point_count = 2
 
-[node name="main" type="Node2D"]
+[node name="main" type="Node"]
 script = ExtResource("1_0xm2m")
 asteroid_scene = ExtResource("2_h2yge")
+bomb_scene = ExtResource("3_7mycd")
 metadata/_edit_group_ = true
 
 [node name="TextureRect" type="TextureRect" parent="."]
@@ -22,9 +25,15 @@ offset_bottom = 40.0
 texture = ExtResource("3_1bvp3")
 
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
+speed = null
+max_health = null
 
 [node name="AsteroidTimer" type="Timer" parent="."]
 wait_time = 1.5
+autostart = true
+
+[node name="BombTimer" type="Timer" parent="."]
+wait_time = 3.0
 autostart = true
 
 [node name="StartPosition" type="Marker2D" parent="."]
@@ -36,4 +45,7 @@ curve = SubResource("Curve2D_h2yge")
 [node name="AsteroidSpawnLocation" type="PathFollow2D" parent="AsteroidPath"]
 rotation = 1.5708
 
+[node name="HUD" parent="." instance=ExtResource("4_1bvp3")]
+
 [connection signal="timeout" from="AsteroidTimer" to="." method="_on_asteroid_timer_timeout"]
+[connection signal="timeout" from="BombTimer" to="." method="_on_bomb_timer_timeout"]

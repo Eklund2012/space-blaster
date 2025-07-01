@@ -1,12 +1,14 @@
 [gd_scene load_steps=4 format=3 uid="uid://cfbv4kqajm3a4"]
 
-[ext_resource type="Script" uid="uid://dlkp0o2ojnt75" path="res://asteroid.gd" id="1_p0ukn"]
-[ext_resource type="Texture2D" uid="uid://dy6y6sulyqqfx" path="res://art/asteroid.png" id="1_u87q6"]
+[ext_resource type="Script" uid="uid://dlkp0o2ojnt75" path="res://scripts/asteroid.gd" id="1_p0ukn"]
+[ext_resource type="Texture2D" uid="uid://dy6y6sulyqqfx" path="res://assets/art/asteroid.png" id="1_u87q6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_p0ukn"]
 radius = 39.0
 
-[node name="asteroid" type="Area2D"]
+[node name="asteroid" type="Area2D" groups=["asteroid_group"]]
+collision_layer = 4
+collision_mask = 3
 script = ExtResource("1_p0ukn")
 metadata/_edit_group_ = true
 

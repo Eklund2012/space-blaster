@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://dg83w8o65sv6b"]
+
+[ext_resource type="Texture2D" uid="uid://fdc5bgm8c7ef" path="res://assets/art/player.png" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://ckrbsdbqv1xqq" path="res://scripts/player.gd" id="1_onrkg"]
+[ext_resource type="PackedScene" uid="uid://cx5j8vdrs5q7b" path="res://scenes/bullet.tscn" id="2_i3pqv"]
+[ext_resource type="Shader" uid="uid://dsxrjdm0o20m5" path="res://assets/shaders/player.gdshader" id="3_hqtel"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sweqy"]
+shader = ExtResource("3_hqtel")
+shader_parameter/opacity = 1.0
+shader_parameter/r = 1.0
+shader_parameter/g = 1.0
+shader_parameter/b = 1.0
+shader_parameter/mix_color = 0.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4flbx"]
+radius = 37.0135
+
+[node name="Player" type="Area2D"]
+collision_mask = 6
+script = ExtResource("1_onrkg")
+bullet_scene = ExtResource("2_i3pqv")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_sweqy")
+scale = Vector2(2, 2)
+texture = ExtResource("1_4flbx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_4flbx")
+
+[node name="TakeDamageShaderTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[connection signal="timeout" from="TakeDamageShaderTimer" to="." method="_on_take_damage_shader_timer_timeout"]
