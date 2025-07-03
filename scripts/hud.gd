@@ -17,8 +17,13 @@ func update_health(health: int) -> void:
 	
 func show_game_over():
 	toggle_visible_components(true)
+func show_main():
+	$SpaceBlaster.visible = true
+	$PlayButton.visible = true
+	$MenuButton.visible = true
 	
 func toggle_visible_components(state: bool):
+	$SpaceBlaster.visible = state
 	$GameOverLabel.visible = state
 	$PlayButton.visible = state
 	$MenuButton.visible = state
@@ -28,4 +33,4 @@ func _on_play_button_button_down() -> void:
 	start_game.emit()
 
 func _on_menu_button_button_down() -> void:
-	print("Menu button down")
+	get_tree().change_scene_to_file("res://scenes/menu.tscn")

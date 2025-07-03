@@ -9,10 +9,14 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if Input.is_action_pressed("ui_cancel"):
+		$Player.hide()
+		$Player/CollisionShape2D.disabled = true
+		$Player.speed = 0
+		#game_over()
+		main_screen_transition()
 	
 func new_game():
-	$Player.visible = true
 	score = 0
 	$HUD.update_score(score)
 	$Player.health = $Player.max_health
@@ -20,14 +24,20 @@ func new_game():
 	$Player.start($StartPosition.position)
 	$AsteroidTimer.start()
 	$BombTimer.start()
+	$Player.visible = true
 	
-func game_over():
-	$HUD.show_game_over()
-	# Stop timers or enemy spawning
+func main_screen_transition():
+	# Stop timers and enemy spawning
+	$HUD.show_main()
 	$AsteroidTimer.stop()
 	$BombTimer.stop()
 	get_tree().call_group("asteroid_group", "queue_free")
 	get_tree().call_group("bomb_group", "queue_free")
+	
+func game_over():
+	$HUD.show_game_over()
+	main_screen_transition()
+	
 	
 func _on_asteroid_timer_timeout() -> void:
 	var asteroid = asteroid_scene.instantiate()

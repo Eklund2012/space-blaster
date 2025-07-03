@@ -29,8 +29,13 @@ func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("bullets"):
 		queue_free()      # Remove bomb
 		area.queue_free() # Remove bullet
-		#get_tree().get_root().get_node("main/Player").take_damage()
 	elif area.name == "Player":
-		print("area is player")
-		area.take_damage()
+		#area.take_damage() not needed cuz player takes dmg from explosion instant
 		queue_free()
+	spawn_explosion()
+
+func spawn_explosion():
+	var explosion_scene = preload("res://scenes/Explosion.tscn")  # Adjust path
+	var explosion = explosion_scene.instantiate()
+	get_tree().current_scene.add_child(explosion)
+	explosion.global_position = global_position
