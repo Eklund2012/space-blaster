@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://drt4nupiam3u6"
-path="res://.godot/imported/mine.png-2fcc1c29d5900c244e224e0c574c17fc.ctex"
+uid="uid://n3fexl13rs8b"
+path="res://.godot/imported/stars-galaxy.jpg-bf3ed881b6edd8169120304c9355b8c2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/mine.png"
-dest_files=["res://.godot/imported/mine.png-2fcc1c29d5900c244e224e0c574c17fc.ctex"]
+source_file="res://assets/art/background/stars-galaxy.jpg"
+dest_files=["res://.godot/imported/stars-galaxy.jpg-bf3ed881b6edd8169120304c9355b8c2.ctex"]
 
 [params]
 

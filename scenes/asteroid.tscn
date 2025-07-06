@@ -1,24 +1,45 @@
-[gd_scene load_steps=4 format=3 uid="uid://cfbv4kqajm3a4"]
+[gd_scene load_steps=6 format=3 uid="uid://cfbv4kqajm3a4"]
 
 [ext_resource type="Script" uid="uid://dlkp0o2ojnt75" path="res://scripts/asteroid.gd" id="1_p0ukn"]
-[ext_resource type="Texture2D" uid="uid://dy6y6sulyqqfx" path="res://assets/art/asteroid.png" id="1_u87q6"]
+[ext_resource type="Texture2D" uid="uid://klyus45yn365" path="res://assets/art/jswars_gfx/asteroid.png" id="2_6mo6b"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_6mo6b"]
+friction = 0.0
+bounce = 1.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_p0ukn"]
 radius = 39.0
 
-[node name="asteroid" type="Area2D" groups=["asteroid_group"]]
+[sub_resource type="CircleShape2D" id="CircleShape2D_6mo6b"]
+radius = 38.6394
+
+[node name="asteroid" type="RigidBody2D" groups=["asteroid_group"]]
 collision_layer = 4
-collision_mask = 3
+collision_mask = 15
+mass = 1000.0
+physics_material_override = SubResource("PhysicsMaterial_6mo6b")
+gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 1
 script = ExtResource("1_p0ukn")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_u87q6")
+texture = ExtResource("2_6mo6b")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_p0ukn")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(4.17233e-07, 4.17233e-07)
+scale = Vector2(0.8, 0.8)
 
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_6mo6b")
+
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

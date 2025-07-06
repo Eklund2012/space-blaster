@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://blqvwdei6iits"]
+
+[ext_resource type="FontFile" uid="uid://dkg83txrptyte" path="res://assets/fonts/Michroma-Regular.ttf" id="1_xlh88"]
+
+[resource]
+default_font = ExtResource("1_xlh88")

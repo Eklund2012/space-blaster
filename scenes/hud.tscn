@@ -1,26 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://o1sn2urfba0x"]
 
 [ext_resource type="Script" uid="uid://cmshfmmm0xvt0" path="res://scripts/hud.gd" id="1_37p78"]
-
-[sub_resource type="FontFile" id="FontFile_n2snw"]
-subpixel_positioning = 0
-msdf_pixel_range = 14
-msdf_size = 128
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-cache/0/64/0/ascent = 0.0
-cache/0/64/0/descent = 0.0
-cache/0/64/0/underline_position = 0.0
-cache/0/64/0/underline_thickness = 0.0
-cache/0/64/0/scale = 1.0
-cache/0/74/0/ascent = 0.0
-cache/0/74/0/descent = 0.0
-cache/0/74/0/underline_position = 0.0
-cache/0/74/0/underline_thickness = 0.0
-cache/0/74/0/scale = 1.0
+[ext_resource type="FontFile" uid="uid://dkg83txrptyte" path="res://assets/fonts/Michroma-Regular.ttf" id="2_oo0fn"]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_37p78")
@@ -33,6 +14,11 @@ offset_left = -20.0
 offset_right = 20.0
 offset_bottom = 23.0
 grow_horizontal = 2
+theme_override_colors/font_color = Color(0.223529, 1, 0.0784314, 1)
+theme_override_colors/font_shadow_color = Color(0.32549, 0.203922, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 8
+theme_override_fonts/font = ExtResource("2_oo0fn")
 theme_override_font_sizes/font_size = 80
 text = "Space Blaster!"
 
@@ -46,7 +32,6 @@ offset_left = -257.0
 offset_top = -99.0
 grow_horizontal = 0
 grow_vertical = 0
-theme_override_fonts/font = SubResource("FontFile_n2snw")
 theme_override_font_sizes/font_size = 74
 text = "Score: 0"
 

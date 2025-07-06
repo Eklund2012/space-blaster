@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ddufp1r3ae48a"
-path="res://.godot/imported/modular_ships.png-e3bd02f4aba564581bd44c7af7feff38.ctex"
+path="res://.godot/imported/modular_ships.png-3284083365fe5883b11825dff60616d1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/modular_ships.png"
-dest_files=["res://.godot/imported/modular_ships.png-e3bd02f4aba564581bd44c7af7feff38.ctex"]
+source_file="res://assets/art/player_skins/modular_ships.png"
+dest_files=["res://.godot/imported/modular_ships.png-3284083365fe5883b11825dff60616d1.ctex"]
 
 [params]
 

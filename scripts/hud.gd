@@ -13,10 +13,12 @@ func update_score(score):
 	$ScoreLabel.text = "Score: " + str(score)
 	
 func update_health(health: int) -> void:
-	$HealthLabel.text = "Health: " + str(health)
+	if health >= 0:
+		$HealthLabel.text = "Health: " + str(health)
 	
 func show_game_over():
 	toggle_visible_components(true)
+
 func show_main():
 	$SpaceBlaster.visible = true
 	$PlayButton.visible = true

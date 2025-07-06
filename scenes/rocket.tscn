@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://com0t0dckmtn2"]
+
+[ext_resource type="Texture2D" uid="uid://t56amj24utda" path="res://assets/art/jswars_gfx/rocket animated.png" id="1_3341w"]
+[ext_resource type="Script" uid="uid://ctdoewvqs08ku" path="res://scripts/rocket.gd" id="1_dkv7l"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3341w"]
+size = Vector2(48, 20)
+
+[node name="Rocket" type="Area2D" groups=["rockets"]]
+collision_layer = 4
+collision_mask = 15
+script = ExtResource("1_dkv7l")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_3341w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_3341w")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." groups=["rocket_group", "rockets"]]
+position = Vector2(0, 4.17233e-07)
+scale = Vector2(0.8, 0.8)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

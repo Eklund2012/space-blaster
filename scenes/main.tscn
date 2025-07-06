@@ -1,11 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://dy2tedses40wf"]
+[gd_scene load_steps=10 format=3 uid="uid://dy2tedses40wf"]
 
 [ext_resource type="Script" uid="uid://bnwgo11fbryu8" path="res://scripts/main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://dg83w8o65sv6b" path="res://scenes/player.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://cfbv4kqajm3a4" path="res://scenes/asteroid.tscn" id="2_h2yge"]
-[ext_resource type="Texture2D" uid="uid://n3fexl13rs8b" path="res://assets/art/stars-galaxy.jpg" id="3_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://n3fexl13rs8b" path="res://assets/art/background/stars-galaxy.jpg" id="3_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://dhaeufy37qiqp" path="res://scenes/bomb.tscn" id="3_7mycd"]
 [ext_resource type="PackedScene" uid="uid://o1sn2urfba0x" path="res://scenes/hud.tscn" id="4_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://com0t0dckmtn2" path="res://scenes/rocket.tscn" id="4_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://chyhiqr3wyx1t" path="res://scenes/shoot_cooldown_bar.tscn" id="8_tipki"]
 
 [sub_resource type="Curve2D" id="Curve2D_h2yge"]
 _data = {
@@ -17,6 +19,7 @@ point_count = 5
 script = ExtResource("1_0xm2m")
 asteroid_scene = ExtResource("2_h2yge")
 bomb_scene = ExtResource("3_7mycd")
+rocket_scene = ExtResource("4_o6xl0")
 metadata/_edit_group_ = true
 
 [node name="TextureRect" type="TextureRect" parent="."]
@@ -32,16 +35,25 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_1bvp3")
 
+[node name="ShootCooldownBar" parent="." instance=ExtResource("8_tipki")]
+position = Vector2(8, 192)
+
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
 visible = false
 position = Vector2(224, 160)
-scale = Vector2(0.7, 0.7)
+scale = Vector2(0.6, 0.6)
 
 [node name="AsteroidTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 2.5
+autostart = true
 
 [node name="BombTimer" type="Timer" parent="."]
-wait_time = 6.0
+wait_time = 5.5
+autostart = true
+
+[node name="RocketTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
 
 [node name="StartPosition" type="Marker2D" parent="."]
 position = Vector2(600, 400)
@@ -55,4 +67,5 @@ curve = SubResource("Curve2D_h2yge")
 
 [connection signal="timeout" from="AsteroidTimer" to="." method="_on_asteroid_timer_timeout"]
 [connection signal="timeout" from="BombTimer" to="." method="_on_bomb_timer_timeout"]
+[connection signal="timeout" from="RocketTimer" to="." method="_on_rocket_timer_timeout"]
 [connection signal="start_game" from="HUD" to="." method="new_game"]
