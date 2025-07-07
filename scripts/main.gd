@@ -5,6 +5,7 @@ extends Node
 @export var rocket_scene: PackedScene
 
 var score = 0
+var is_paused = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -12,29 +13,51 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if Input.is_action_pressed("ui_cancel"):
-		$Player.hide()
-		$Player/CollisionShape2D.disabled = true
-		$Player.speed = 0
-		main_screen_transition()
+	if Input.is_action_just_pressed("ui_cancel"): # PAUSED
+		toggle_pause()
+		
+func toggle_pause():
+	is_paused = !is_paused
+	Globals.is_global_paused = is_paused
+	$HUD.show_paused_label(is_paused)
+	toggle_timers(is_paused)
+	toggle_object_speeds(is_paused)
 	
+	# If you want the player to be hidden/disabled when paused, you can add this:
+	if is_paused:
+		$Player.speed = 0
+	else:
+		$Player.speed = Globals.player_speed
+	
+func toggle_timers(is_paused: bool) -> void:
+	$AsteroidTimer.set_paused(is_paused)
+	$BombTimer.set_paused(is_paused)
+	$RocketTimer.set_paused(is_paused)
+	$ShootCooldownBar/ResetCooldownTimer.set_paused(is_paused)
+	$ShootCooldownBar/DecreaseProgressBar.set_paused(is_paused)
+	
+func toggle_object_speeds(is_paused: bool) -> void:
+	var method_name = "pause" if is_paused else "resume"
+	
+	get_tree().call_group("asteroid_group", method_name)
+	get_tree().call_group("bomb_group", method_name)
+	get_tree().call_group("rocket_group", method_name)
+	get_tree().call_group("bullet_group", method_name)
+
 func new_game():
 	score = 0
 	get_tree().call_group("asteroid_group", "queue_free")
 	get_tree().call_group("bomb_group", "queue_free")
-	get_tree().call_group("rockets", "queue_free")
+	get_tree().call_group("rocket_group", "queue_free")
+	get_tree().call_group("explosion_group", "queue_free")
 	$HUD.update_score(score)
-	$HUD.update_health($Player.health)
 	$Player.start($StartPosition.position)
 	$Player.visible = true
-	$Player.health = $Player.max_health
 	$AsteroidTimer.start()
 	$BombTimer.start()
 	$RocketTimer.start()
 	
-	
 func main_screen_transition():
-	# Stop timers
 	$HUD.show_main()
 	
 func game_over():

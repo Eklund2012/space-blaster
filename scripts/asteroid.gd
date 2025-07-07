@@ -8,7 +8,12 @@ extends RigidBody2D
 
 var move_speed := 100.0
 var rotation_speed := 90.0
+
 var velocity := Vector2.ZERO
+var saved_linear_velocity = Vector2.ZERO
+var saved_angular_velocity = 0.0
+
+var saved_speed = 100
 
 func _ready() -> void:
 	move_speed = randf_range(min_move_speed, max_move_speed)
@@ -28,18 +33,6 @@ func _process(delta: float) -> void:
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	queue_free()
 
-func _on_area_entered(area: Area2D) -> void:
-	if area.is_in_group("bullets"):
-		queue_free()
-		area.queue_free()
-		get_tree().get_current_scene().update_score_from_asteroid()
-	elif area.name == "Player":
-		area.take_damage()
-		queue_free()
-	elif area.is_in_group("explosions"):
-		spawn_explosion()
-		queue_free()
-
 func spawn_explosion():
 	var explosion_scene = preload("res://scenes/Explosion.tscn")  # Adjust path
 	var explosion = explosion_scene.instantiate()
@@ -52,8 +45,19 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 		area.queue_free()
 		get_tree().get_current_scene().update_score_from_asteroid()
 	elif area.name == "Player":
-		area.take_damage()
-		queue_free()
-	elif area.is_in_group("explosions"):
+		if area.state == "alive":
+			area.take_damage()
+			queue_free()
+	elif area.name == "Explosion":
 		spawn_explosion()
 		queue_free()
+
+func pause():
+	saved_linear_velocity = linear_velocity
+	saved_angular_velocity = angular_velocity
+	linear_velocity = Vector2.ZERO
+	angular_velocity = 0.0
+
+func resume():
+	linear_velocity = saved_linear_velocity
+	angular_velocity = saved_angular_velocity

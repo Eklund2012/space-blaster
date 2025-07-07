@@ -31,13 +31,17 @@ texture = ExtResource("1_4flbx")
 position = Vector2(-1, 1)
 shape = SubResource("CircleShape2D_4flbx")
 
-[node name="TakeDamageShaderTimer" type="Timer" parent="."]
-wait_time = 0.3
-one_shot = true
-
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(0, 4.17233e-07)
 scale = Vector2(0.8, 0.8)
 
-[connection signal="timeout" from="TakeDamageShaderTimer" to="." method="_on_take_damage_shader_timer_timeout"]
+[node name="TakeDamageShaderTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[node name="TakeDamageTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="timeout" from="TakeDamageShaderTimer" to="." method="_on_take_damage_shader_timer_timeout"]
+[connection signal="timeout" from="TakeDamageTimer" to="." method="_on_take_damage_timer_timeout"]

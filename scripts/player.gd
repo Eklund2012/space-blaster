@@ -3,11 +3,12 @@ extends Area2D
 @export var speed := 0
 @export var rotation_speed := 280 # Degrees per second
 @export var bullet_scene: PackedScene
-@export var max_health := 1
+@export var max_health := Globals.max_health
 
 var health := max_health
 var start_pos = 0
-var state = ""
+var state := ""
+var can_take_damage_state := true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -26,7 +27,8 @@ func start(pos):
 	show()
 	$CollisionShape2D.disabled = false
 	health = max_health
-	speed = 250
+	speed = Globals.player_speed
+	get_tree().get_current_scene().get_node("Health").update_hearts(health)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -41,7 +43,7 @@ func _process(delta: float) -> void:
 	position += velocity * delta
 		
 	# Shoot
-	if Input.is_action_just_pressed("shoot"):
+	if Input.is_action_just_pressed("shoot") and !Globals.is_global_paused:
 		shoot()
 
 func shoot():
@@ -57,6 +59,11 @@ func shoot():
 	bullet.add_to_group("bullets")
 
 func take_damage(amount: int = 1) -> void:
+	if not can_take_damage_state:
+		return
+	can_take_damage_state = false
+	$TakeDamageTimer.start()
+	
 	$Sprite2D.material.set_shader_parameter("opacity", 0.7);
 	$Sprite2D.material.set_shader_parameter("r", 1.0);
 	$Sprite2D.material.set_shader_parameter("g", 0.0);
@@ -65,8 +72,10 @@ func take_damage(amount: int = 1) -> void:
 	$TakeDamageShaderTimer.start()
 	
 	health -= amount
-	get_tree().get_current_scene().get_node("HUD").update_health(health)
+	Globals.current_health = health
+	get_tree().get_current_scene().get_node("Health").update_hearts(health)
 	if health == 0 and state == "alive":
+		get_tree().get_current_scene().get_node("Health").update_hearts(max_health)
 		die()
 		spawn_explosion()
 
@@ -94,3 +103,6 @@ func _on_take_damage_shader_timer_timeout() -> void:
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	take_damage(1)
 	self.position = start_pos
+
+func _on_take_damage_timer_timeout() -> void:
+	can_take_damage_state = true

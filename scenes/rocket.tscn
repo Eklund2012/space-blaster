@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3341w"]
 size = Vector2(48, 20)
 
-[node name="Rocket" type="Area2D" groups=["rockets"]]
+[node name="Rocket" type="Area2D" groups=["rocket_group"]]
 collision_layer = 4
 collision_mask = 15
 script = ExtResource("1_dkv7l")
@@ -17,7 +17,7 @@ texture = ExtResource("1_3341w")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_3341w")
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." groups=["rocket_group", "rockets"]]
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." groups=["rocket_group"]]
 position = Vector2(0, 4.17233e-07)
 scale = Vector2(0.8, 0.8)
 
