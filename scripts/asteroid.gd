@@ -51,6 +51,12 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 	elif area.name == "Explosion":
 		spawn_explosion()
 		queue_free()
+	elif area.name == "Rocket":
+		spawn_explosion()
+		queue_free()
+	elif area.name == "Bomb":
+		spawn_explosion()
+		queue_free()
 
 func pause():
 	saved_linear_velocity = linear_velocity

@@ -1,22 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://cdyb2po507abn"]
+[gd_scene load_steps=2 format=3 uid="uid://cdyb2po507abn"]
 
 [ext_resource type="Script" uid="uid://cb8jkhcfpeb5t" path="res://scenes/menu.gd" id="1_yqeox"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yqeox"]
-bg_color = Color(0.830335, 0.830335, 0.830335, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4h3mk"]
-bg_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-shadow_size = 5
-shadow_offset = Vector2(0, 4)
 
 [node name="Menu" type="CanvasLayer"]
 script = ExtResource("1_yqeox")
@@ -27,7 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.212305, 0.212305, 0.212305, 1)
+color = Color(0, 0, 0, 1)
 
 [node name="Button" type="Button" parent="."]
 anchors_preset = 7
@@ -35,32 +19,25 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -84.0
-offset_top = -80.0
-offset_right = 84.0
+offset_left = -80.0
+offset_top = -88.0
+offset_right = 80.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 30
-theme_override_styles/hover = SubResource("StyleBoxFlat_yqeox")
-theme_override_styles/normal = SubResource("StyleBoxFlat_4h3mk")
 text = "Back"
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 8
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 0.494
 anchor_right = 0.5
-anchor_bottom = 0.5
+anchor_bottom = 0.494
 offset_left = -260.0
-offset_top = -168.0
+offset_top = -168.112
 offset_right = 260.0
-offset_bottom = 168.0
+offset_bottom = 167.888
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -73,6 +50,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+stretch_mode = 3
 
 [node name="Previous" type="Button" parent="Control"]
 layout_mode = 1
@@ -83,10 +61,7 @@ offset_top = -40.0
 offset_right = 168.0
 offset_bottom = 40.0
 grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 30
-theme_override_styles/hover = SubResource("StyleBoxFlat_yqeox")
-theme_override_styles/normal = SubResource("StyleBoxFlat_4h3mk")
 text = "Previous"
 
 [node name="Next" type="Button" parent="Control"]
@@ -101,14 +76,7 @@ offset_top = -40.0
 offset_bottom = 40.0
 grow_horizontal = 0
 grow_vertical = 2
-theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 30
-theme_override_styles/hover = SubResource("StyleBoxFlat_yqeox")
-theme_override_styles/normal = SubResource("StyleBoxFlat_4h3mk")
 text = "Next"
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
