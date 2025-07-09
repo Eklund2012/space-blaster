@@ -14,11 +14,11 @@ func _ready() -> void:
 	move_speed = randf_range(min_move_speed, max_move_speed)
 	# Move toward center of screen
 	var screen_center = get_viewport_rect().size / 2
-	velocity = (screen_center - position).normalized() * move_speed
+	velocity = (screen_center - global_position ).normalized() * move_speed
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	position += velocity * delta
+	global_position  += velocity * delta
 	if velocity == Vector2.ZERO:
 		rotation = saved_velocity.angle()
 	else:

@@ -19,11 +19,11 @@ func _ready() -> void:
 
 	# Move toward center of screen
 	var screen_center = get_viewport_rect().size / 2
-	velocity = (screen_center - position).normalized() * move_speed
+	velocity = (screen_center - global_position ).normalized() * move_speed
 
 func _process(delta: float) -> void:
 	rotation_degrees += rotation_speed * delta
-	position += velocity * delta
+	global_position  += velocity * delta
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	queue_free()

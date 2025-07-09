@@ -13,7 +13,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("ui_cancel"): # PAUSED
+	if Input.is_action_just_pressed("ui_cancel") and $Player.visible == true: # PAUSED
 		toggle_pause()
 		
 func toggle_pause():
@@ -64,27 +64,27 @@ func game_over():
 	$HUD.show_game_over()
 	main_screen_transition()
 	
+func update_score_from_asteroid() -> void:
+	score+=1
+	$HUD.update_score(score)
+	
 func _on_asteroid_timer_timeout() -> void:
 	var asteroid = asteroid_scene.instantiate()
 	var asteroid_spawn_location = $AsteroidPath/AsteroidSpawnLocation
 	asteroid_spawn_location.progress_ratio = randf()
-	asteroid.position = asteroid_spawn_location.position
+	asteroid.global_position = asteroid_spawn_location.position
 	add_child(asteroid)
 	
-func update_score_from_asteroid() -> void:
-	score+=1
-	$HUD.update_score(score)
-
 func _on_bomb_timer_timeout() -> void:
 	var bomb = bomb_scene.instantiate()
 	var bomb_spawn_location = $AsteroidPath/AsteroidSpawnLocation
 	bomb_spawn_location.progress_ratio = randf()
-	bomb.position = bomb_spawn_location.position
+	bomb.global_position = bomb_spawn_location.position
 	add_child(bomb)
 
 func _on_rocket_timer_timeout() -> void:
 	var rocket = preload("res://scenes/rocket.tscn").instantiate()
 	var rocket_spawn_location = $AsteroidPath/AsteroidSpawnLocation
 	rocket_spawn_location.progress_ratio = randf()
-	rocket.position = rocket_spawn_location.position
+	rocket.global_position = rocket_spawn_location.position
 	add_child(rocket)

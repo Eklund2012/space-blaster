@@ -13,23 +13,36 @@ var velocity := Vector2.ZERO
 var saved_linear_velocity = Vector2.ZERO
 var saved_angular_velocity = 0.0
 
+var initialized = false
+
 var saved_speed = 100
 
 func _ready() -> void:
 	move_speed = randf_range(min_move_speed, max_move_speed)
 	rotation_speed = randf_range(min_rotation_speed, max_rotation_speed)
 
-	# Move toward center of screen
-	var screen_center = get_viewport_rect().size / 2
+	# Wait for next frame to ensure viewport is fully initialized
+	call_deferred("_set_initial_velocity")
+
+func _set_initial_velocity():
+	var screen_center = get_viewport().get_visible_rect().size / 2
 	var direction = (screen_center - global_position).normalized()
 	linear_velocity = direction * move_speed
-
-	# Optional: spin while moving
 	angular_velocity = deg_to_rad(rotation_speed)
 
-func _process(delta: float) -> void:
-	pass
+func _physics_process(delta):
+	if not initialized:
+		var screen_center = get_viewport_rect().size / 2
+		var direction = (screen_center - global_position).normalized()
+		linear_velocity = direction * move_speed
+		angular_velocity = deg_to_rad(rotation_speed)
+		initialized = true
 
+func _process(delta: float) -> void:
+	var overlapping_areas = $Hitbox.get_overlapping_areas()
+	for area in overlapping_areas:
+		_on_hitbox_area_entered(area)
+	
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	queue_free()
 

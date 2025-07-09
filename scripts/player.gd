@@ -44,7 +44,11 @@ func _process(delta: float) -> void:
 		
 	# Shoot
 	if Input.is_action_just_pressed("shoot") and !Globals.is_global_paused:
-		shoot()
+		if get_tree().get_current_scene().has_node("ShootCooldownBar"):
+			var cooldown_bar = get_tree().get_current_scene().get_node("ShootCooldownBar")
+			if cooldown_bar.get_value() < 100:
+				shoot()
+				$LaserAudioStreamPlayer2D.play()
 
 func shoot():
 	if get_tree().get_current_scene().has_node("ShootCooldownBar"):
@@ -62,6 +66,7 @@ func take_damage(amount: int = 1) -> void:
 	if not can_take_damage_state:
 		return
 	can_take_damage_state = false
+	$DamageAudioStreamPlayer2D.play()
 	$TakeDamageTimer.start()
 	
 	$Sprite2D.material.set_shader_parameter("opacity", 0.7);
@@ -77,7 +82,7 @@ func take_damage(amount: int = 1) -> void:
 	if health == 0 and state == "alive":
 		get_tree().get_current_scene().get_node("Health").update_hearts(max_health)
 		die()
-		spawn_explosion()
+		#spawn_explosion()
 
 func spawn_explosion():
 	var explosion_scene = preload("res://scenes/Explosion.tscn")  # Adjust path
@@ -86,6 +91,7 @@ func spawn_explosion():
 	explosion.global_position = global_position
 
 func die() -> void:
+	$DeathStreamPlayer2D.play()
 	hide()
 	state = "dead"
 	speed = 0

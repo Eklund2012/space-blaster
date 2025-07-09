@@ -11,7 +11,6 @@ config_version=5
 [application]
 
 config/name="Space Blaster"
-config/tags=PackedStringArray("in_dev")
 run/main_scene="uid://dy2tedses40wf"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://assets/art/icon.svg"

@@ -2,6 +2,7 @@ extends Area2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	$ExplosionAudioStreamPlayer2D.play()
 	var random_index = randi_range(1, 3)
 	var animation_name = "explosion_%d" % random_index
 	$AnimatedSprite2D.play(animation_name)
