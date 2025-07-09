@@ -1,7 +1,10 @@
 # Space Blaster
 
 A 2D space shooter game built in **Godot**.  
-**Status:** In Development 🚀
+**Status:** Finished
+
+# Itch.io page
+https://davideklund1.itch.io/space-blaster
 
 ## Attributions
 
