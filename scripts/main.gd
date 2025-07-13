@@ -3,6 +3,14 @@ extends Node
 @export var asteroid_scene: PackedScene
 @export var bomb_scene: PackedScene
 @export var rocket_scene: PackedScene
+@export var upgrade_scene: PackedScene
+
+@export var spawn_table: Array[Dictionary] = [
+	{ scene = preload("res://scenes/asteroid.tscn"),  cooldown = 1.2, group = "asteroid_group" },
+	{ scene = preload("res://scenes/bomb.tscn"),      cooldown = 3.5, group = "bomb_group" },
+	{ scene = preload("res://scenes/rocket.tscn"),    cooldown = 6.0, group = "rocket_group" },
+	{ scene = preload("res://scenes/upgrade.tscn"),   cooldown = 8.0, group = "upgrade_group" },
+]
 
 var score = 0
 var is_paused = false
@@ -15,7 +23,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_cancel") and $Player.visible == true: # PAUSED
 		toggle_pause()
-		
+	check_score()
+	
 func toggle_pause():
 	is_paused = !is_paused
 	Globals.is_global_paused = is_paused
@@ -83,8 +92,16 @@ func _on_bomb_timer_timeout() -> void:
 	add_child(bomb)
 
 func _on_rocket_timer_timeout() -> void:
-	var rocket = preload("res://scenes/rocket.tscn").instantiate()
+	#var rocket = preload("res://scenes/rocket.tscn").instantiate()
+	var rocket = rocket_scene.instantiate()
 	var rocket_spawn_location = $AsteroidPath/AsteroidSpawnLocation
 	rocket_spawn_location.progress_ratio = randf()
 	rocket.global_position = rocket_spawn_location.position
 	add_child(rocket)
+
+func check_score():
+	if score % 2 != 0 and !Globals.repair_upgrade_up:
+		var upgrade = upgrade_scene.instantiate()
+		var upgrade_spawn_location = $StartPosition
+		upgrade.global_position = upgrade_spawn_location.global_position
+		add_child(upgrade)

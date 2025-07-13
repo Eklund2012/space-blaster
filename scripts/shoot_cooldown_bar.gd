@@ -1,7 +1,7 @@
 extends Node2D
 
-var shake_magnitude := 5
-var shake_duration := 0.3
+var shake_magnitude := 10
+var shake_duration := 0.5
 var shake_time := 0.0
 var original_position := Vector2()
 

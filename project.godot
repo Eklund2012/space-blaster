@@ -66,3 +66,4 @@ shoot={
 2d_physics/layer_2="Bullet"
 2d_physics/layer_3="Asteroid/Bomb/Rocket"
 2d_physics/layer_4="Explosion"
+2d_physics/layer_5="Upgrade"

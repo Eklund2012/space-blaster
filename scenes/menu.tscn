@@ -13,6 +13,21 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
+[node name="Label" type="Label" parent="."]
+offset_left = 408.0
+offset_top = 496.0
+offset_right = 476.0
+offset_bottom = 520.0
+text = "Sound"
+
+[node name="HSlider" type="HSlider" parent="."]
+offset_left = 496.0
+offset_top = 496.0
+offset_right = 656.0
+offset_bottom = 520.0
+min_value = -30.0
+max_value = 0.0
+
 [node name="Button" type="Button" parent="."]
 anchors_preset = 7
 anchor_left = 0.5
@@ -34,12 +49,13 @@ anchor_left = 0.5
 anchor_top = 0.494
 anchor_right = 0.5
 anchor_bottom = 0.494
-offset_left = -260.0
-offset_top = -168.112
-offset_right = 260.0
-offset_bottom = 167.888
+offset_left = -256.0
+offset_top = -320.112
+offset_right = 256.0
+offset_bottom = 15.888
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_group_ = true
 
 [node name="PreviewNode" type="TextureRect" parent="Control"]
 layout_mode = 1
@@ -79,6 +95,7 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 30
 text = "Next"
 
+[connection signal="value_changed" from="HSlider" to="." method="_on_h_slider_value_changed"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Control/Previous" to="." method="_on_previous_pressed"]
 [connection signal="pressed" from="Control/Next" to="." method="_on_next_pressed"]

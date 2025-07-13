@@ -7,10 +7,14 @@ var skin_paths = [
 ]
 var current_index = 0
 
+var master_bus = AudioServer.get_bus_index("Master")
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	current_index = Globals.selected_skin_path_index
 	update_preview()
+	print(AudioServer.get_bus_volume_db(master_bus))
+	$HSlider.value = AudioServer.get_bus_volume_db(master_bus)
 	
 func update_preview():
 	var texture = load(skin_paths[current_index]) as Texture2D
@@ -33,3 +37,12 @@ func _on_previous_pressed() -> void:
 func _on_next_pressed() -> void:
 	current_index = (current_index + 1) % skin_paths.size()
 	update_preview()
+
+
+func _on_h_slider_value_changed(value: float) -> void:
+	AudioServer.set_bus_volume_db(master_bus, value)
+	
+	if value == -30:
+		AudioServer.set_bus_mute(master_bus, true)
+	else:
+		AudioServer.set_bus_mute(master_bus, false)
